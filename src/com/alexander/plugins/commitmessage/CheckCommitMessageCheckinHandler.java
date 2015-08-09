@@ -21,7 +21,6 @@ public class CheckCommitMessageCheckinHandler extends CheckinHandler {
 	private static final Logger LOG = Logger.getInstance("#" + CheckCommitMessageCheckinHandler.class.getName());
 
 	private static final int COMMIT_TITLE_LENGTH = 50;
-	private static final int COMMIT_DESCRIPTION_LENGHT = 72;
 
 	public CheckCommitMessageCheckinHandler(final Project project, final CheckinProjectPanel panel) {
 		myProject = project;
@@ -65,11 +64,16 @@ public class CheckCommitMessageCheckinHandler extends CheckinHandler {
 	public ReturnResult beforeCheckin(CommitExecutor executor, PairConsumer<Object, Object> additionalDataConsumer) {
 		if (getSettings().CHECK_COMMIT_MESSAGE) {
 			String wholeCommitMessage = myPanel.getCommitMessage();
-			String[] commitParts = wholeCommitMessage.split("\n\r");
+
+			if (wholeCommitMessage == null){
+				return ReturnResult.COMMIT; // leave the error msg to the soruce code
+			}
+
+			String[] commitParts = wholeCommitMessage.split("\n\n");
 			String commitTitle = commitParts[0];
 
 			if (commitTitle.length() > COMMIT_TITLE_LENGTH) {
-				Messages.showErrorDialog(myProject, "Commit title is too long", "Commit Message");
+				Messages.showErrorDialog(myProject, "Commit subject line is too long", "Commit Message");
 				return ReturnResult.CANCEL;
 			}
 
