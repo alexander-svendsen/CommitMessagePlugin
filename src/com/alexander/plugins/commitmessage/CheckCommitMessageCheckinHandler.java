@@ -1,9 +1,9 @@
 package com.alexander.plugins.commitmessage;
 
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vcs.CheckinProjectPanel;
-import com.intellij.openapi.vcs.VcsConfiguration;
 import com.intellij.openapi.vcs.changes.CommitExecutor;
 import com.intellij.openapi.vcs.checkin.CheckinHandler;
 import com.intellij.openapi.vcs.ui.RefreshableOnComponent;
@@ -18,8 +18,12 @@ public class CheckCommitMessageCheckinHandler extends CheckinHandler {
 
 	protected final Project myProject;
 	private final CheckinProjectPanel myPanel;
+	private static final Logger LOG = Logger.getInstance("#" + CheckCommitMessageCheckinHandler.class.getName());
 
-	public CheckCommitMessageCheckinHandler(final Project project, final CheckinProjectPanel panel){
+	private static final int COMMIT_TITLE_LENGTH = 50;
+	private static final int COMMIT_DESCRIPTION_LENGHT = 72;
+
+	public CheckCommitMessageCheckinHandler(final Project project, final CheckinProjectPanel panel) {
 		myProject = project;
 		myPanel = panel;
 	}
@@ -59,6 +63,19 @@ public class CheckCommitMessageCheckinHandler extends CheckinHandler {
 
 	@Override
 	public ReturnResult beforeCheckin(CommitExecutor executor, PairConsumer<Object, Object> additionalDataConsumer) {
-		return ReturnResult.COMMIT;
+		if (getSettings().CHECK_COMMIT_MESSAGE) {
+			String wholeCommitMessage = myPanel.getCommitMessage();
+			String[] commitParts = wholeCommitMessage.split("\n\r");
+			String commitTitle = commitParts[0];
+
+			if (commitTitle.length() > COMMIT_TITLE_LENGTH) {
+				Messages.showErrorDialog(myProject, "Commit title is too long", "Commit Message");
+				return ReturnResult.CANCEL;
+			}
+
+			return ReturnResult.COMMIT;
+		} else {
+			return ReturnResult.COMMIT;
+		}
 	}
 }
