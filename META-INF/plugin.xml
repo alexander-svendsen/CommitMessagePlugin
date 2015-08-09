@@ -25,6 +25,7 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
+      <projectService serviceInterface="com.alexander.plugins.commitmessage.CommitMessageConfiguration" serviceImplementation="com.alexander.plugins.commitmessage.CommitMessageConfiguration"/>
       <checkinHandlerFactory implementation="com.alexander.plugins.commitmessage.CommitMessageCheckinHandlerFactory"/>
   </extensions>
 

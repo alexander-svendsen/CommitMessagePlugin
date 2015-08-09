@@ -1,5 +1,6 @@
 package com.alexander.plugins.commitmessage;
 
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.CheckinProjectPanel;
 import com.intellij.openapi.vcs.VcsConfiguration;
@@ -26,13 +27,13 @@ public class CheckCommitMessageCheckinHandler extends CheckinHandler {
 	@Override
 	@Nullable
 	public RefreshableOnComponent getBeforeCheckinConfigurationPanel() {
-		final JCheckBox reformatBox = new NonFocusableCheckBox("Check commit message");
+		final JCheckBox checkMessageBox = new NonFocusableCheckBox("Check commit message");
 
 		return new RefreshableOnComponent() {
 			@Override
 			public JComponent getComponent() {
 				final JPanel panel = new JPanel(new GridLayout(1, 0));
-				panel.add(reformatBox);
+				panel.add(checkMessageBox);
 				return panel;
 			}
 
@@ -42,28 +43,22 @@ public class CheckCommitMessageCheckinHandler extends CheckinHandler {
 
 			@Override
 			public void saveState() {
-				getSettings().REFORMAT_BEFORE_PROJECT_COMMIT = reformatBox.isSelected();
+				getSettings().CHECK_COMMIT_MESSAGE = checkMessageBox.isSelected();
 			}
 
 			@Override
 			public void restoreState() {
-				reformatBox.setSelected(getSettings().REFORMAT_BEFORE_PROJECT_COMMIT);
+				checkMessageBox.setSelected(getSettings().CHECK_COMMIT_MESSAGE);
 			}
 		};
-
 	}
 
-	protected VcsConfiguration getSettings() {
-		return VcsConfiguration.getInstance(myProject);
-	}
-
-	private static boolean reformat(final VcsConfiguration configuration, boolean checkinProject) {
-		return checkinProject ? configuration.REFORMAT_BEFORE_PROJECT_COMMIT : configuration.REFORMAT_BEFORE_FILE_COMMIT;
+	protected CommitMessageConfiguration getSettings() {
+		return CommitMessageConfiguration.getInstance(myProject);
 	}
 
 	@Override
 	public ReturnResult beforeCheckin(CommitExecutor executor, PairConsumer<Object, Object> additionalDataConsumer) {
-		return ReturnResult.CANCEL;
+		return ReturnResult.COMMIT;
 	}
-
 }
