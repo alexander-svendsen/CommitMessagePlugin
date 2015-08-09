@@ -1,0 +1,21 @@
+
+### IntelliJ
+/out/
+*.iml
+
+## Directory-based project format:
+.idea/
+
+### OSX
+.DS_Store
+
+### Java
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
