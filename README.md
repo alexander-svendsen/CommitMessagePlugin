@@ -18,4 +18,7 @@ The plugin adds a checkbox to the before commit configuration named "Check commi
 
 This is based upon what is written here: http://chris.beams.io/posts/git-commit/
 
-Note that this plugin only extends what IntelliJ already offers and doesn't add anything IntelliJ can provide by itself. Like wrap commit message at 72 characters (Can be found under settings->Version Control)
+Note that this plugin only extends what IntelliJ already offers and doesn't add anything IntelliJ can provide by itself. Like wrap commit message at 72 characters (Can be found under Settings -> Version Control).
+
+## Installation: 
+In IntelliJ open Settings -> Plugins -> Install plugin from disk -> Select CommitMessagePlugin.jar.
