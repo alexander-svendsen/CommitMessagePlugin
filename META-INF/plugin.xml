@@ -1,17 +1,22 @@
 <idea-plugin version="2">
   <id>com.alexander.plugins.commitmessage</id>
-  <name>Plugin display name here</name>
-  <version>2.0</version>
+  <name>Commit message syntax checker</name>
+  <version>1.1</version>
   <vendor email="alexander.svendsen@bekk.no">Alexander Svendsen</vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      Checks the commit message for common mistakes before the commit, if enabled.
+      Checks for:
+      <ul>
+          <li>No subject line</li>
+          <li>Subject line too long</li>
+          <li>Subject dosn't start with a capital letter</li>
+          <li>Subject ends with a period</li>
+      </ul
     ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+      Initial release
     ]]>
   </change-notes>
 
@@ -20,9 +25,7 @@
 
   <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
-  -->
 
   <extensions defaultExtensionNs="com.intellij">
       <projectService serviceInterface="com.alexander.plugins.commitmessage.CommitMessageConfiguration" serviceImplementation="com.alexander.plugins.commitmessage.CommitMessageConfiguration"/>
