@@ -65,21 +65,30 @@ public class CheckCommitMessageCheckinHandler extends CheckinHandler {
 		if (getSettings().CHECK_COMMIT_MESSAGE) {
 			String wholeCommitMessage = myPanel.getCommitMessage();
 
-			if (wholeCommitMessage == null){
-				return ReturnResult.COMMIT; // leave the error msg to the soruce code
+			if (wholeCommitMessage == null || wholeCommitMessage.trim().equals("")) {
+				return ReturnResult.COMMIT; // leave the error msg to the source code
 			}
 
 			String[] commitParts = wholeCommitMessage.split("\n\n");
 			String commitTitle = commitParts[0];
 
+			String errorMsg = "";
+
 			if (commitTitle.length() > COMMIT_TITLE_LENGTH) {
-				Messages.showErrorDialog(myProject, "Commit subject line is too long", "Commit Message");
-				return ReturnResult.CANCEL;
+				errorMsg += " - Subject line is too long";
+			}
+			if (!Character.isUpperCase(commitTitle.codePointAt(0))) {
+				errorMsg += "\n - Subject line should start with a capital letter";
+			}
+			if (commitTitle.trim().endsWith(".")) {
+				errorMsg += "\n - Subject line should not end with period";
 			}
 
-			return ReturnResult.COMMIT;
-		} else {
-			return ReturnResult.COMMIT;
+			if (!errorMsg.equals("")) {
+				Messages.showErrorDialog(myProject, errorMsg, "Commit Message Error");
+				return ReturnResult.CANCEL;
+			}
 		}
+		return ReturnResult.COMMIT;
 	}
 }
