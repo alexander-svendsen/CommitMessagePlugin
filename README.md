@@ -11,10 +11,10 @@ The plugin adds a checkbox to the before commit configuration named "Check commi
 ![Screenshot of the plugin showing the mistakes](https://cloud.githubusercontent.com/assets/2320398/9183534/f5fb0362-3faf-11e5-8cb9-ca00bc1a2b34.png)
 
 ## What the plugin checks for:
-* No subject line
-* Subject line too long
-* Subject doesn't start with a capital letter
-* Subject ends with a period
+* No commit message subject line
+* Subject line too long (over 50 characters)
+* Subject line doesn't start with a capital letter
+* Subject line ends with a period
 
 This is based upon what is written here: http://chris.beams.io/posts/git-commit/
 
