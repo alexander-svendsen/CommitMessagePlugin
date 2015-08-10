@@ -6,6 +6,10 @@ When committing in IntelliJ the "Commit Changes" window pops up. Here it is poss
 
 The plugin adds a checkbox to the before commit configuration named "Check commit message". This checkbox enables/disables the plugin depending on the value. When enabled the plugin checks the commit message for the proper syntax before allowing the commit. If it finds any mistakes an error message pops up with the mistakes pointed out.
 
+![Screenshot of the checkbox the plugin adds](https://cloud.githubusercontent.com/assets/2320398/9183636/b1b420f2-3fb0-11e5-83d2-08033c22b5cc.png)
+
+![Screenshot of the plugin showing the mistakes](https://cloud.githubusercontent.com/assets/2320398/9183534/f5fb0362-3faf-11e5-8cb9-ca00bc1a2b34.png)
+
 ## What the plugin checks for:
 * No subject line
 * Subject line too long
