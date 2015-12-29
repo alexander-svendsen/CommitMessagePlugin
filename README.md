@@ -1,6 +1,8 @@
 # Commit Message Plugin
 An IntelliJ plugin which checks the commit message for the proper syntax before allowing the commit. It is enabled by default but can easily be disabled by the user if wanted.
 
+[![ghit.me](https://ghit.me/badge.svg?repo=alexander-svendsen/CommitMessagePlugin)](https://ghit.me/repo/alexander-svendsen/CommitMessagePlugin)
+
 ## Usage:
 When committing in IntelliJ the "Commit Changes" window pops up. Here it is possible to select which files you wish to commit, write a custom commit message, etc.
 
